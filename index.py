@@ -1,4 +1,3 @@
-def hello():
-    print ('Hello World')
+import pycord.main as m
 
-hello()
+m.hello()
