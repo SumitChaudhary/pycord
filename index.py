@@ -1,5 +1,5 @@
 import pycord.main as m
 
 m.hello()
-msg = m.reqip()
-print(msg)
+#msg = m.reqip()
+#print(msg)
