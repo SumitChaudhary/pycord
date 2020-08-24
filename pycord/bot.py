@@ -1,5 +1,9 @@
+import os
 import discord
+from dotenv import load_dotenv
 
+load_dotenv(dotenv_path="..\.env")
+TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 @client.event
@@ -14,4 +18,4 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-client.run('NzQ1NzgwMjEyNDM2MDQxNzUw.Xz2v8g.aeVh2SNELiT8VG06xCD2xuGAUxU)
+client.run(TOKEN)
