@@ -16,6 +16,11 @@ async def on_ready():
         if guild.name == GUILD:
             break
 
+    print(f'Server region is : {guild.region}')
+    text_channels = '\n - '.join([channel.name for channel in guild.text_channels])
+    print(f'Guild Text Channels:\n - {text_channels}')
+    voice_channels = '\n - '.join([channel.name for channel in guild.voice_channels])
+    print(f'Guild Voice Channels:\n - {voice_channels}')
     print(
         f'{client.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})'
