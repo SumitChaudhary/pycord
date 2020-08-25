@@ -1,5 +1,6 @@
 import os
 import discord
+import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,5 +31,8 @@ async def on_message(message):
 
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
+    
+    if message.content.startswith('$time?'):
+        await message.channel.send('Time now at greenwich meridian is : {0}'.format(datetime.datetime.now()))
 
 client.run(TOKEN)
