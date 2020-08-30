@@ -48,4 +48,7 @@ async def on_message(message):
     if message.content.startswith('$time?'):
         await message.channel.send('Time now at greenwich meridian is : {0}'.format(datetime.datetime.now()))
 
+    if message.content == "cookie":
+        await message.channel.send(":cookie:")
+
 client.run(TOKEN)
