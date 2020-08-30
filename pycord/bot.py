@@ -2,11 +2,15 @@ import os
 import discord
 import datetime
 from dotenv import load_dotenv
+from discord.ext import commands
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 client = discord.Client()
+
+bot_prefix = "!"
+bot = commands.Bot(command_prefix=bot_prefix)
 
 #print('Token is ___{0}____'.format(TOKEN))
 
@@ -25,7 +29,11 @@ async def on_ready():
         f'{client.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})'
     )
-    
+    print(
+        f'{bot.user.name} with id {bot.user.id} is connected to the following guild:\n'
+        f'{guild.name}(id: {guild.id})'
+    )
+
     members = '\n - '.join([member.name for member in guild.members])
     print(f'Guild Members:\n - {members}')
 
