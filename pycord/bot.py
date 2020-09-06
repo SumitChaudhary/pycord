@@ -1,21 +1,20 @@
 import os
-import discord
-import datetime
 from dotenv import load_dotenv
+import datetime
+
+import discord
 from discord.ext import commands
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-client = discord.Client()
 
-#bot_prefix = "!"
-#bot = commands.Bot(command_prefix=bot_prefix)
-
-#print('Token is ___{0}____'.format(TOKEN))
+client = commands.Bot(command_prefix='.')
 
 @client.event
 async def on_ready():
+    print('Bot is ready')
+    
     for guild in client.guilds:
         if guild.name == GUILD:
             break
@@ -29,20 +28,19 @@ async def on_ready():
         f'{client.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})'
     )
-    '''
-    print(
-        f'{bot.user.name} with id {bot.user.id} is connected to the following guild:\n'
-        f'{guild.name}(id: {guild.id})'
-    )'''
-
+    
     members = '\n - '.join([member.name for member in guild.members])
     print(f'Guild Members:\n - {members}')
+
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
-
+    
+    if message.content == 'hello':
+        await message.channel.send('howdy!')
+    
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
     
@@ -51,5 +49,35 @@ async def on_message(message):
 
     if message.content == "cookie":
         await message.channel.send(":cookie:")
+    
+    await client.process_commands(message)
+
+
+@client.event
+async def on_member_join(member):
+    print(f'{member} has joined the server.')
+    
+
+@client.event
+async def on_member_remove(member):
+    print(f'{member} has joined the server.')
+    
+
+
+@client.command()
+async def ping(ctx):
+    print(f'ping command detected')
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+
+
+@client.command()
+async def test(ctx, *args):
+    print(f'test command detected')
+    msg = ""
+    for arg in args:
+        msg = msg + arg 
+    
+    await ctx.send(f'You passed {msg}')
+
 
 client.run(TOKEN)
