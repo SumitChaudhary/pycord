@@ -50,6 +50,7 @@ async def on_message(message):
     if message.content == "cookie":
         await message.channel.send(":cookie:")
     
+    #add the following line else the bot stops processing after parsing the message. 
     await client.process_commands(message)
 
 
@@ -73,11 +74,12 @@ async def ping(ctx):
 @client.command()
 async def test(ctx, *args):
     print(f'test command detected')
-    msg = ""
-    for arg in args:
-        msg = msg + arg 
-    
-    await ctx.send(f'You passed {msg}')
+    await ctx.send('Command sent by {} with {} arguments: {}'.format(ctx.author, len(args), ', '.join(args)))
 
+@client.command()
+async def pic(ctx):
+    print(f'pic command detected')        
+    await ctx.send('https://images.freeimages.com/images/large-previews/389/mitze-1380778.jpg')
 
+#Start the bot
 client.run(TOKEN)
